@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+	    <meta charset="utf-8">
+	    <title>Group Manager</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+		
+		<link rel="stylesheet" type="text/css" href="styles/groupManager.css" media="all" />
+		
+		<!-- HTML Templates - TODO : make external -->
+		<script type="text/template" id="homePage">
+			<h2>Welcome Home</h2>
+		</script>
+		
+		<script type="text/template" id="usersPage">
+			<h2>Users Page</h2>
+			<div style="border: 1px solid #666666">
+				<ul id="userList">
+				</ul>
+			</div>
+		</script>
+		
+		<script type="text/template" id="meetingsPage">
+			<h2>Meetings Page</h2>
+		</script>
+		
+		<script type="text/template" id="rafflesPage">
+			<h2>Raffles Page</h2>
+		</script>
+		
+		<script type="text/template" id="userRow">
+			Hello, my name is <%= name %> &nbsp; <a href="javascript: void(0);" class="remove">X</a>
+		</script>
+		
+	</head>
+	
+	<body>
+		
+		<!-- TODO : Update HTML and use HTML5 (sections & such) -->
+		
+		<!-- application wrapper -->
+		<div id="container">
+			
+			<!-- navigation -->
+			<div id="navigation">
+				<ul>
+					<li>
+						<a href="#users">Users</a>
+					</li>
+					<li>
+						<a href="#meetings">Meetings</a>
+					</li>
+					<li>
+						<a href="#raffles">Raffles</a>
+					</li>
+				</ul>
+			</div>
+			
+			<!-- main content -->
+			<div id="content"></div>
+		</div>
+		
+		
+		<!-- JavaScript -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+		<script src="js/libs/underscore-min.js"></script>
+		<script src="js/libs/backbone-min.js"></script>
+		<script src="js/libs/backbone.localStorage-min.js"></script>
+
+		<script src="js/init.js"></script>
+		<script src="js/models/user.js"></script>
+		<script src="js/collections/userCollection.js"></script>
+		<script src="js/views/pages/homePage.js"></script>
+		<script src="js/views/pages/meetingsPage.js"></script>
+		<script src="js/views/pages/rafflesPage.js"></script>
+		<script src="js/views/pages/usersPage.js"></script>
+		<script src="js/views/renderers/userRow.js"></script>
+		<script src="js/routers/mainRouter.js"></script>
+		<script src="js/views/groupManager.js"></script>
+		<script src="js/main.js"></script>
+		
+	</body>
+</html>
+
+
