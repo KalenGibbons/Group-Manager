@@ -56,6 +56,7 @@ $(function(){
 			// create the homePage if it doesn't already exist
 			if(! this.usersPage){
 				this.usersPage = new window.fms.UsersPage({model : this.users});
+				this.usersPage.render();
 				this.users.fetch();
 			}
 			// inject the content into the page

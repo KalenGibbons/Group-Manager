@@ -14,12 +14,17 @@
 			this.model.on('reset', this.resetUser, this);
 			
 			// DOM references
-			this.$list = $('#userList');
+			this.$list = this.$('#userList');
 		}, // end initialize function
 		
 		render : function(){
 			// simply render the template
 			$(this.el).html( this.template() );
+			// reset DOM references
+			this.$list = this.$('#userList');
+			// re-render user rows
+			this.updateUsers.call(this);
+
 			return this;
 		}, // end render function
 		
@@ -34,12 +39,12 @@
 		}, // end resetUser function
 		
 		updateUsers : function(){
+			var $userList =	this.$list;
 			// reset the user list
-			this.$list.empty();
+			$userList.empty();
 			// loop through and render all users
 			_.each(this.model.models, function(user){
-				console.log("THIS SCOPE IS UNDEFINED IN THIS ANONYMOUS FUNCTION");
-				//this.$list.append( new window.fms.UserRow( {model:user} ).render().el );
+				$userList.append( new window.fms.UserRow( {model:user} ).render().el );
 			});
 		} // end updateUsers function
 		
