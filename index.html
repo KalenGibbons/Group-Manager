@@ -23,6 +23,28 @@
 			</div>
 		</script>
 		
+		<script type="text/template" id="userEditPage">
+			<h2>User Edit Page</h2>
+			<div style="border: 1px solid #666666">
+				<form>
+					<div class="input-block">
+						<label for="name">Name</label>
+						<input name="name" id="name" value="<%= name %>" />
+						<span class="notification"></span>
+					</div>
+				</form>
+			</div>
+		</script>
+		
+		<script type="text/template" id="userDetailsPage">
+			<h2>User Details Page</h2>
+			<div style="border: 1px solid #666666">
+				<p>
+					Say hello to <%= name %>.
+				</p>
+			</div>
+		</script>
+		
 		<script type="text/template" id="meetingsPage">
 			<h2>Meetings Page</h2>
 		</script>
@@ -32,7 +54,10 @@
 		</script>
 		
 		<script type="text/template" id="userRow">
-			Hello, my name is <%= name %> &nbsp; <a href="javascript: void(0);" class="remove">X</a>
+			Hello, my name is <%= name %> &nbsp; 
+			<a href="javascript: void(0);" class="view">view</a> &nbsp;
+			<a href="javascript: void(0);" class="edit">edit</a> &nbsp;
+			<a href="javascript: void(0);" class="remove">delete</a>
 		</script>
 		
 	</head>
@@ -79,6 +104,8 @@
 		<script src="js/views/pages/rafflesPage.js"></script>
 		<script src="js/views/pages/usersPage.js"></script>
 		<script src="js/views/renderers/userRow.js"></script>
+		<script src="js/views/pages/userDetailsPage.js"></script>
+		<script src="js/views/pages/userForm.js"></script>
 		<script src="js/routers/mainRouter.js"></script>
 		<script src="js/views/groupManager.js"></script>
 		<script src="js/main.js"></script>

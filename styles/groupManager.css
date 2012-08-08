@@ -8,3 +8,16 @@
 	width:			600px;
 	margin-left:	350px;
 }
+
+
+
+.input-block.validation-error input,
+.input-block.validation-error select,
+.input-block.validation-error textarea{
+	border-color:	#B94A48; /* TODO - use LESS to make this browser compatible */
+	color:			#B94A48; /* TODO - replace with error variable color */
+}
+
+.input-block.validation-error{
+	color:			#B94A48; /* TODO - replace with error variable color */
+}
