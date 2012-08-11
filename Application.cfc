@@ -1,51 +1,66 @@
-﻿<!-----------------------------------------------------------------------
-********************************************************************************
-Copyright 2005-2007 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-www.coldbox.org | www.luismajano.com | www.ortussolutions.com
-********************************************************************************
+﻿component extends="coldbox.system.Coldbox"{
 
-Author     :	Luis Majano
-Date        :	10/16/2007
-Description :
-	This is the bootstrapper Application.cfc for ColdBox Applications.
-	It uses inheritance on the CFC, so if you do not want inheritance
-	then use the Application_noinheritance.cfc instead.
+	// Application CFC Properties
+	this.name = 						"GroupManager" & hash( getCurrentTemplatePath() );
+	this.sessionManagement = 			true;
+	this.sessionTimeout = 				createTimeSpan(0, 8, 0, 0); // 8 hours
+	this.setClientCookies = 			true;
+	this.mappings["/GroupManager"]=		getDirectoryFromPath( getCurrentTemplatePath() );
 	
+	// ColdBox Settings
+	COLDBOX_APP_ROOT_PATH = 			getDirectoryFromPath( getCurrentTemplatePath() );
+	COLDBOX_APP_MAPPING   = 			"";
+	COLDBOX_CONFIG_FILE   = 			"";
+	COLDBOX_APP_KEY 	  = 			"";
 	
------------------------------------------------------------------------>
-<cfcomponent extends="coldbox.system.Coldbox" output="false">
-	<cfsetting enablecfoutputonly="yes" />
-	<!--- APPLICATION CFC PROPERTIES --->
-	<cfset this.name = 				hash( getCurrentTemplatePath() ) /> 
-	<cfset this.sessionManagement = true />
-	<cfset this.sessionTimeout = 	createTimeSpan(0,0,30,0) />
-	<cfset this.setClientCookies = 	true />
-	
-	<!--- COLDBOX STATIC PROPERTY, DO NOT CHANGE UNLESS THIS IS NOT THE ROOT OF YOUR COLDBOX APP --->
-	<cfset COLDBOX_APP_ROOT_PATH = 	getDirectoryFromPath( getCurrentTemplatePath() ) />
-	<!--- The web server mapping to this application. Used for remote purposes or static purposes --->
-	<cfset COLDBOX_APP_MAPPING   = 	"" />
-	<!--- COLDBOX PROPERTIES --->
-	<cfset COLDBOX_CONFIG_FILE   = 	"" />	
-	<!--- COLDBOX APPLICATION KEY OVERRIDE --->
-	<cfset COLDBOX_APP_KEY       = 	"" />
+	// ORM Settings
+	this.ormEnabled 	  = 			true;
+	this.datasource		  = 			"groupManager";
+	this.ormSettings	  = {
+		cfcLocation =					"model",
+		dialect 	= 					"MySQL",
+		dbcreate =						"update",
+		/*
+		dbcreate 	= 					"none",
+		dbcreate 	= 					"dropcreate",
+		sqlscript =						"setupScript.sql",
+		*/
+		cfclocation = 					"model/entities/",
+		logSQL 		= 					true,
+		flushAtRequestEnd = 			false,
+		autoManageSession =				false
+		/*
+		eventHandling =					true,
+		eventHandler =					"model.handlers.ORMEventHandler"
+		*/
+	};
 
-	<!--- on Request Start --->
-	<cffunction name="onRequestStart" returnType="boolean" output="true">
-		<!--- ************************************************************* --->
-		<cfargument name="targetPage" type="string" required="true" />
-		<!--- ************************************************************* --->
-		
-		<!--- Process A ColdBox Request Only --->
-		<cfif findNoCase('index.cfm', listLast(arguments.targetPage, '/'))>
-			<!--- Reload Checks --->
-			<cfset reloadChecks() />
-			<!--- Process Request --->
-			<cfset processColdBoxRequest() />
-		</cfif>
-		
-		<!--- WHATEVER YOU WANT BELOW --->
-		<cfreturn true />
-	</cffunction>
+	public boolean function onApplicationStart(){
+		loadColdBox();
+		return true;
+	}// end onApplicationStart function
 	
-</cfcomponent>
+	public boolean function onRequestStart(targetPage){
+	
+		// ORM Reload Check
+		if( structKeyExists(url,"ormReinit") ){
+			ORMReload();
+		}
+		
+		// Reload ColdBox?
+		reloadChecks();
+		
+		// process a coldbox request only
+		if( findNoCase('index.cfm', listLast(arguments.targetPage, '/')) ){
+			processColdBoxRequest();
+		}
+		
+		return true;			
+	}// end onRequestStart function
+	
+	public function onError(required any exception, required string eventName){
+		// TODO : Do global error handling here (last call after ColdBox handling fails)
+		writeDump(arguments); abort;
+	}// end onError function
+	
+}

@@ -5,12 +5,16 @@
 		
 		// define routes
 		routes : {
-			"" :				"goHome", 			// default route
-			"users/edit/:id" :	"gotoUserEdit",		// displays user details
-			"users/:id" :		"gotoUserDetails",	// displays user details
-			"users" :			"gotoUsers", 		// list of all available users
-			"meetings" :		"gotoMeetings",		// list of all meetings
-			"raffles" :			"gotoRaffles"		// list of all raffles
+			"" :					"goHome", 				// default route
+			"users/edit/:id" :		"gotoUserEdit",			// edit user form
+			"users/new" :			"gotoUserNew",			// new user form
+			"users/:id" :			"gotoUserDetails",		// displays user details
+			"users" :				"gotoUsers", 			// list of all available users
+			"meetings" :			"gotoMeetings",			// list of all meetings
+			"raffles/edit/:id" :	"gotoRaffleEdit",		// edit raffle form
+			"raffles/new" :			"gotoRaffleNew",		// new raffle form
+			"raffles/:id" :			"gotoRaffleDetails",	// view raffle details
+			"raffles" :				"gotoRaffles"			// list of all raffles
 		}, // end routes
 		
 		initialize : function(applicationContext){
@@ -34,6 +38,18 @@
 			this.app.showView('Meetings');
 		}, // end gotoMeetings function
 		
+		gotoRaffleDetails : function(id){
+			this.app.showView('RaffleDetails', id);
+		}, // end gotoRaffleDetails function
+		
+		gotoRaffleEdit : function(id){
+			this.app.showView('RaffleForm', id)
+		}, // end gotoRaffleEdit function
+		
+		gotoRaffleNew : function(){
+			this.app.showView('RaffleForm', 0);
+		}, // end gotoRaffleNew function
+		
 		gotoRaffles : function(){
 			this.app.showView('Raffles');
 		}, // end gotoRaffles function
@@ -45,6 +61,10 @@
 		gotoUserEdit : function(id){
 			this.app.showView('UserForm', id);
 		}, // end gotoUserEdit function
+		
+		gotoUserNew : function(){
+			this.app.showView('UserForm', 0);
+		}, // end gotoUserNew function
 		
 		gotoUsers : function(){
 			this.app.showView('Users');

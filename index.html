@@ -18,20 +18,44 @@
 		<script type="text/template" id="usersPage">
 			<h2>Users Page</h2>
 			<div style="border: 1px solid #666666">
+				<a href="#/users/new" style="float: right">Add User</a>
 				<ul id="userList">
 				</ul>
 			</div>
 		</script>
 		
+		<script type="text/template" id="userRow">
+			<%= firstName %> <%= lastName %> | <%= email %> <%= phone %>
+			<a href="javascript: void(0);" class="view">view</a> &nbsp;
+			<a href="javascript: void(0);" class="edit">edit</a> &nbsp;
+			<a href="javascript: void(0);" class="remove">delete</a>
+		</script>
+		
 		<script type="text/template" id="userEditPage">
 			<h2>User Edit Page</h2>
 			<div style="border: 1px solid #666666">
-				<form>
+				<form onsubmit="return false;">
 					<div class="input-block">
-						<label for="name">Name</label>
-						<input name="name" id="name" value="<%= name %>" />
+						<label for="firstName">First Name:</label>
+						<input name="firstName" id="firstName" value="<%= firstName %>" />
 						<span class="notification"></span>
 					</div>
+					<div class="input-block">
+						<label for="lastName">Last Name:</label>
+						<input name="lastName" id="lastName" value="<%= lastName %>" />
+						<span class="notification"></span>
+					</div>
+					<div class="input-block">
+						<label for="email">Email:</label>
+						<input name="email" id="email" value="<%= email %>" />
+						<span class="notification"></span>
+					</div>
+					<div class="input-block">
+						<label for="phone">Phone:</label>
+						<input name="phone" id="phone" value="<%= phone %>" />
+						<span class="notification"></span>
+					</div>
+					<a href="javascript: void(0);" id="submitBtn">Submit</a>
 				</form>
 			</div>
 		</script>
@@ -49,12 +73,31 @@
 			<h2>Meetings Page</h2>
 		</script>
 		
-		<script type="text/template" id="rafflesPage">
-			<h2>Raffles Page</h2>
+		<script type="text/template" id="raffleEditPage">
+			<h2>Raffle Edit Page</h2>
+			<div style="border: 1px solid #666666">
+				<form onsubmit="return false;">
+					<div class="input-block">
+						<label for="prize">Prize:</label>
+						<input name="prize" id="prize" value="<%= prize %>" />
+						<span class="notification"></span>
+					</div>
+					<a href="javascript: void(0);" id="submitBtn">Submit</a>
+				</form>
+			</div>
 		</script>
 		
-		<script type="text/template" id="userRow">
-			Hello, my name is <%= name %> &nbsp; 
+		<script type="text/template" id="rafflesPage">
+			<h2>Raffles Page</h2>
+			<div style="border: 1px solid #666666">
+				<a href="#/raffles/new" style="float: right">Add Raffle</a>
+				<ul id="raffleList">
+				</ul>
+			</div>
+		</script>
+		
+		<script type="text/template" id="raffleRow">
+			<%= prize %>
 			<a href="javascript: void(0);" class="view">view</a> &nbsp;
 			<a href="javascript: void(0);" class="edit">edit</a> &nbsp;
 			<a href="javascript: void(0);" class="remove">delete</a>
@@ -86,6 +129,7 @@
 			
 			<!-- main content -->
 			<div id="content"></div>
+
 		</div>
 		
 		
@@ -97,15 +141,23 @@
 		<script src="js/libs/backbone.localStorage-min.js"></script>
 
 		<script src="js/init.js"></script>
+		<!-- model -->
 		<script src="js/models/user.js"></script>
+		<script src="js/models/raffle.js"></script>
+		<!-- collections -->
 		<script src="js/collections/userCollection.js"></script>
+		<script src="js/collections/raffleCollection.js"></script>
+		<!-- views -->
 		<script src="js/views/pages/homePage.js"></script>
 		<script src="js/views/pages/meetingsPage.js"></script>
+		<script src="js/views/pages/raffleForm.js"></script>
+		<script src="js/views/renderers/raffleRow.js"></script>
 		<script src="js/views/pages/rafflesPage.js"></script>
 		<script src="js/views/pages/usersPage.js"></script>
 		<script src="js/views/renderers/userRow.js"></script>
 		<script src="js/views/pages/userDetailsPage.js"></script>
 		<script src="js/views/pages/userForm.js"></script>
+		<!-- core -->
 		<script src="js/routers/mainRouter.js"></script>
 		<script src="js/views/groupManager.js"></script>
 		<script src="js/main.js"></script>

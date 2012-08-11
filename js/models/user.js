@@ -5,13 +5,18 @@
 		
 		// object defaults
 		defaults : {
-			'name' :	''
+			'firstName' :		'',
+			'lastName' :		'',
+			'email' :			'',
+			'phone' :			'',
+			'dateCreated' :		new Date(),
+			'dateModified' :	new Date()
 		}, // end defaults
 		
 		initialize : function(){
-			this.validators =		{};
+			this.validators =			{};
 			
-			this.validators.name = 	this.validateName;
+			this.validators.firstName = this.validateFirstName;
 		}, // end initialize function
 		
 		clear : function(){
@@ -48,7 +53,7 @@
 		}, // end validate function
 		*/
 		
-		validateName : function(value){
+		validateFirstName : function(value){
 			var results =	{isValid : false, message : ''};
 			// make sure it has a valid length
 			if(value.length > 0){
@@ -57,7 +62,7 @@
 				results.message = 	"A valid name is required";
 			}
 			return results;
-		} // end validateName function
+		} // end validateFirstName function
 		
 	}); // end User
 	

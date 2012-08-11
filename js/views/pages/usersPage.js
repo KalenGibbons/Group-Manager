@@ -10,7 +10,7 @@
 			// bind model events
 			this.model.on('all', this.updateUsers, this);
 			this.model.on('add', this.addUser, this);
-			this.model.on('reset', this.resetUser, this);
+			this.model.on('reset', this.resetUsers, this);
 			
 			// DOM references
 			this.$list = this.$('#userList');
@@ -32,18 +32,18 @@
 			
 		}, // end addUser function
 		
-		resetUser : function(){
+		resetUsers : function(){
 			
 			
-		}, // end resetUser function
+		}, // end resetUsers function
 		
 		updateUsers : function(){
-			var $userList =	this.$list;
+			var self = this;
 			// reset the user list
-			$userList.empty();
+			this.$list.empty();
 			// loop through and render all users
 			_.each(this.model.models, function(user){
-				$userList.append( new window.fms.UserRow( {model:user} ).render().el );
+				self.$list.append( new window.fms.UserRow( {model:user} ).render().el );
 			});
 		} // end updateUsers function
 		

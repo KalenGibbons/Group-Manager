@@ -39,7 +39,7 @@
 		instance.message = value;
 	}// end setMessage function
 	
-	public struct function getData(){
+	public any function getData(){
 		return instance.data;
 	}// end getData function
 	

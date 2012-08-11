@@ -1,10 +1,10 @@
 
 (function(){
 	
-	window.fms.UserForm = Backbone.View.extend({
+	window.fms.RaffleForm =	Backbone.View.extend({
 		
 		// establish the template for this view
-		template : _.template( $('#userEditPage').html() ),
+		template : _.template( $('#raffleEditPage').html() ),
 		
 		// register view events
 		events : {
@@ -45,12 +45,20 @@
 			}
 		}, // end changeHandler function
 		
-		saveUser : function(){
+		updateFormElement : function(element, _cssClass, _message){
+			var cssClass =	_cssClass || "";
+			var message =	_message || "";
+			// reset values
+			$(element).parent().attr('class', 'input-block').addClass(cssClass);
+			$(element).next().text(message);
+		}, // end updateFormElement function
+		
+		saveRaffle : function(){
 			var self =	this;
 			try{            
 				this.model.save( null, {
 					success : function(model, response){
-						alert('SAVE COMPLETE');
+						App.trigger("navigate", "raffles");
 					},
 					error : function(model, response){
 						alert('ERROR');
@@ -66,21 +74,15 @@
 			return false;
 		}, // end submitHandler function
 		
-		updateFormElement : function(element, _cssClass, _message){
-			var cssClass =	_cssClass || "";
-			var message =	_message || "";
-			// reset values
-			$(element).parent().attr('class', 'input-block').addClass(cssClass);
-			$(element).next().text(message);
-		}, // end updateFormElement function
-		
 		validateForm : function(){
+			console.log('VALIDATE FORM');
 			// TODO : validate model
 			console.info(this.model);
 			// save the updated user
-			this.saveUser.call(this);
+			this.saveRaffle.call(this);
 		} // end validateForm function
 		
-	}); // end UserForm
+	}); // end RaffleForm
 	
 })();
+

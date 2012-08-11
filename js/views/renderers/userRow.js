@@ -15,7 +15,6 @@
 			"click .view" :		"viewUser"
 		}, // end view events
 		
-		// initialize application
 		initialize : function(){
 			// bind model events
 			this.model.on('change', this.render, this);

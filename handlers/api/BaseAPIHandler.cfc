@@ -14,11 +14,12 @@
 	} // end preHandler function
 	
 	public RemoteResults function onError(event, faultAction, exception, eventArguments){
-		
+		writeDump(arguments); abort;
 		
 	} // end onError function
 	
 	public void function postHandler(event, action, eventArguments){
+		/*
 		var user =			super.getUser();
 		var dumpResults =	event.getValue('dump', false);
 		// check to see if the user wants to dump the results (for testing)
@@ -27,6 +28,15 @@
 		}
 		// TODO : temporary dump
 		writeDump(event.getCollection().results.getMemento()); abort;
+		*/
+		var results =	event.getCollection().results;
+		if(results.getStatus() eq 0){
+			// for this API only return the data
+			// TODO : make output type dynamic
+			event.renderData(type='json', data=results.getData());
+		}else{
+			// TODO : send back error status so error method is called on jquery AJAX request
+		}
 	} // end postHandler function
 	
 	
