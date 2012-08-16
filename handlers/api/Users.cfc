@@ -16,7 +16,7 @@
 			
 	public any function index(){
 		// TODO : this method is overridden in the preHandler function
-	}		
+	} // end index function	
 			
 	public query function getUsers(){
 	

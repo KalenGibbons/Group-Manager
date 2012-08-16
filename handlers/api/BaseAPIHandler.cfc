@@ -39,6 +39,16 @@
 		}
 	} // end postHandler function
 	
+	/* *********************************************************************************
+	**								PRIVATE FUNCTIONS
+	********************************************************************************* */
+	
+	private struct function getJSONDataFromHTTP(){
+		var httpBody =	getHttpRequestData().content;
+		var data =		deserializeJSON( toString(httpBody) );
+		return data;
+	} // end getJSONDataFromHTTP function
+	
 	
 	/*
 	

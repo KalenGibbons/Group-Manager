@@ -8,6 +8,7 @@
 		
 		// object defaults
 		defaults : {
+			id :	0,
 			prize :	''
 		}, // end defaults
 		
@@ -17,6 +18,8 @@
 		}, // end initialize function
 		
 		clear : function(){
+			console.log("DESTROY.  Is new? " + this.isNew());
+			console.info(this);
 			this.destroy();
 		}, // end clear function
 		
