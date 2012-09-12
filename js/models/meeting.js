@@ -1,7 +1,7 @@
 
 (function(){
 	
-	window.fms.Raffle = Backbone.Model.extend({
+	window.fms.Meeting = Backbone.Model.extend({
 		
 		// TODO : use custome URL until REST services are available
 		url : function(){ return 'index.cfm?event=api.raffles&id=' + encodeURIComponent(this.id) },
@@ -9,7 +9,7 @@
 		// object defaults
 		defaults : {
 			id :	0,
-			prize :	''
+			topic :	''
 		}, // end defaults
 		
 		initialize : function(){
@@ -29,7 +29,7 @@
 			return results;
 		}, // end validateItem function
 		
-	}); // end Raffle
+	}); // end Meeting
 	
 })();
 

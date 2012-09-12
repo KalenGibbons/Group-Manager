@@ -15,6 +15,7 @@ $(function(){
 			// create base variables
 			this.router =		new window.fms.ApplicationRouter(this);
 			this.users =		new window.fms.UserCollection();
+			this.meetings =		new window.fms.MeetingCollection();
 			this.raffles =		new window.fms.RaffleCollection();
 			// DOM references
 			this.$container = 	$('#content'),
@@ -25,26 +26,42 @@ $(function(){
 			Backbone.history.start();
 		}, // end initialize function
 		
+		loadCollection : function(collection, callback){
+			var self = this;
+			collection.fetch({
+				success : function(){
+					collection.loaded = true;
+					callback.call(self);
+				}
+				// TODO : Add error handling
+			});
+		}, // end loadCollection function
+		
 		loadView_Home : function(){
-			// create the home page if it doesn't already exist
-			if(! this.homePage){
-				this.homePage = new window.fms.HomePage();
-			}
-			// inject the content into the page
+			// create the home page
+			this.homePage = new window.fms.HomePage();
 			this.$container.html( this.homePage.render().el );
 		}, // end loadView_Home function
 		
 		loadView_Meetings : function(){
-			// create the meetings page if it doesn't already exist
-			if(! this.meetingsPage){
-				this.meetingsPage = new window.fms.MeetingsPage();
+			// make sure the meetings are loaded
+			if(! this.meetings.loaded){
+				this.loadCollection.call(this, this.meetings, arguments.callee);
+				return;
 			}
-			// inject the content into the page
+			
+			// create the meetings page
+			this.meetingsPage = new window.fms.MeetingsPage();
 			this.$container.html( this.meetingsPage.render().el );
 		}, // end loadView_Meetings function
 		
 		loadView_RaffleForm : function(id){
-			// TODO : Make sure raffles are loaded first
+			// make sure the raffles are loaded
+			if(! this.raffles.loaded){
+				this.loadCollection.call(this, this.raffles, arguments.callee);
+				return;
+			}
+			
 			// get the raffle, or create a new one if a valid ID isn't present
 			var raffleID = 		id || 0;
 			var editRaffle =	(raffleID !== 0) ? this.raffles.get(id) : new window.fms.Raffle();
@@ -54,81 +71,61 @@ $(function(){
 		}, // end loadView_RaffleForm function
 		
 		loadView_Raffles : function(){
-			var self =	this;
-			// grab the raffles and load the page
-			this.raffles.fetch({
-				success : function(){
-					self.rafflesPage = new window.fms.RafflesPage({model : self.raffles});
-					self.$container.html( self.rafflesPage.render().el );
-				}
-			});
+			// make sure the raffles are loaded
+			if(! this.raffles.loaded){
+				this.loadCollection.call(this, this.raffles, arguments.callee);
+				return;
+			}
+
+			// load the raffles page			
+			this.rafflesPage = new window.fms.RafflesPage({model : this.raffles});
+			this.$container.html( this.rafflesPage.render().el );
 		}, // end loadView_Raffles function
 		
 		loadView_UserForm : function(id){
-			// make sure we have the user data available
-			/* TODO : figure out how not to break this if there's no users yet
-			if(this.users.length < 1){
-				var self = this;
-				// TODO : add fault handler
-				// pull the user data and then call this function again
-				this.users.fetch({success : function(){
-					if(self.users.length){
-						self.loadView_UserForm(id);
-					}
-				}});
+			// make sure the users are loaded
+			if(! this.users.loaded){
+				this.loadCollection.call(this, this.users, arguments.callee);
 				return;
 			}
-			*/
 			
 			// get the user, or create a new one if a valid ID isn't present
 			var userID =	id || 0;
 			var editUser =	(userID !== 0) ? this.users.get(id) : this.users.create();
-			// create the 
 			// TODO : Handle if user comes back null (not found by id)
-			// create a new form and add it to the page
+			// create the user form
 			this.userForm =		new window.fms.UserForm({model : editUser});
 			this.$container.html( this.userForm.render().el );
 		}, // end loadView_UserForm function
 		
 		loadView_UserDetails : function(id){
-			// make sure we have the user data available
-			/* TODO : figure out how not to break this if there's no users yet
-			if(this.users.length < 1){
-				var self = this;
-				// TODO : add fault handler
-				// pull the user data and then call this function again
-				this.users.fetch({success : function(){
-					if(self.users.length){
-						self.loadView_UserForm(id);
-					}
-				}});
+			// make sure the users are loaded
+			if(! this.users.loaded){
+				this.loadCollection.call(this, this.users, arguments.callee);
 				return;
 			}
-			*/
-			
+			// get the user requested
 			var userID =	id || 0;
 			var editUser =	this.users.get(id);
 			// TODO : Handle if user comes back null (not found by id)
-			// create userDetails page if it doesn't already exist
-			if(! this.userDetailsPage){
-				this.userDetailsPage =	new window.fms.UserDetails({model : editUser});
-			}else{
-				// update the model
-				this.userDetailsPage.model = editUser;
-			}
+			// create the user page
+			this.userDetailsPage =	new window.fms.UserDetails({model : editUser});
+			// update the model
+			this.userDetailsPage.model = editUser;
 			// inject the content into the page
 			this.$container.html( this.userDetailsPage.render().el );
 		}, // end loadView_UserDetails function
 		
 		loadView_Users : function(){
-			var self =	this;
-			// grab the users and load the page
-			this.users.fetch({
-				success : function(){
-					self.usersPage = new window.fms.UsersPage({model : self.users});
-					self.$container.html( self.usersPage.render().el );
-				}
-			});
+			// make sure the users are loaded
+			if(! this.users.loaded){
+				this.loadCollection.call(this, this.users, arguments.callee);
+				return;
+			}
+			
+			// load the users page
+			this.usersPage = new window.fms.UsersPage({model : this.users});
+			this.$container.html( this.usersPage.render().el );
 		}, // end loadView_Users function
 		
 		showView : function(pageName, params){

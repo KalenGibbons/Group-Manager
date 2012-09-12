@@ -1,6 +1,6 @@
-﻿component  extends="APIEntityHandler" displayname="Raffles Handler" hint="Handles all raffle based API calls"{
+﻿component  extends="APIEntityHandler" displayname="Meetings Handler" hint="Handles all meeting based API calls"{
 			
-	property name="raffleService" 	inject="model:services.RaffleService";		
+	property name="meetingService" 	inject="model:services.MeetingService";	
 	
 	public void function preHandler(event, action, eventArguments){
 		super.preHandler(argumentCollection=arguments);
@@ -9,24 +9,24 @@
 		var eventName =	"";
 		switch(GetHttpRequestData().method){
 			case "POST":	
-			case "PUT":		eventName =		"api.raffles.saveEntity"; 
+			case "PUT":		eventName =		"api.meetings.saveEntity"; 
 							rc.postData =	super.getJSONDataFromHTTP();
 							break;
-			case "DELETE": 	eventName =		"api.raffles.deleteEntity"; 
+			case "DELETE": 	eventName =		"api.meetings.deleteEntity"; 
 							break;
 			case "GET":		
-			default:		eventName =		"api.raffles.getEntities"; 
+			default:		eventName =		"api.meetings.getEntities"; 
 							break;
 		}
 		event.overrideEvent(eventName);
-	} // end preHandler function
-	
+	} // end preHandler function	
+			
 	public void function injectionHandler() onDiComplete{
-		entityService =		raffleService;
+		entityService =		meetingService;
 	} // end injectionHandler function
 			
 	public any function index(event, action, eventArguments){
 		// NOTE: This method is overridden in the preHandler function
-	} // end index function
+	} // end index function		
 			
 }

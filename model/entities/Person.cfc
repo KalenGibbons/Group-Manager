@@ -30,4 +30,14 @@ component  extends="BaseEntity" persistent="true" accessors="true" displayname="
 		return this;
 	}// end init function
 	
+	public struct function getEntityData(){
+		return {"id" = 			variables.id, 
+				"created" = 	variables.created,
+				"modified" = 	variables.modified,
+				"firstName" = 	variables.firstName, 
+				"lastName" = 	variables.lastName,
+				"email" =		variables.email,
+				"phone" =		variables.phone};
+	}// end getEntityData function
+	
 }

@@ -58,15 +58,4 @@
 		return (isNull(variables.id) ? false : true);
 	}// end getIsPersisted function
 	
-	/* *********************************************************************
-	**						PRIVATE FUNCTIONS								
-	********************************************************************* */
-
-	private void function dump(required any value, boolean abort=false){
-		writedump(arguments.value);
-		if(arguments.abort){
-			abort;
-		}
-	}// end dump function
-
 }
