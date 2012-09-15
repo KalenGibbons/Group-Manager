@@ -4,3 +4,4 @@
 *.project
 settings.xml
 /test/
+.tmp_*
