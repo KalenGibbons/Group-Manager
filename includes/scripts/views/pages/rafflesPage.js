@@ -28,7 +28,7 @@
 		}, // end render function
 		
 		addRaffle : function(){
-			
+			alert('add raffle');
 			
 		}, // end addRaffle function
 		

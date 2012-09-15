@@ -50,7 +50,8 @@
 			try{            
 				this.model.save( null, {
 					success : function(model, response){
-						alert('SAVE COMPLETE');
+						// return to raffle main page
+						App.trigger("navigate", "users");
 					},
 					error : function(model, response){
 						alert('ERROR');

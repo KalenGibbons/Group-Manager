@@ -3,21 +3,16 @@ component  extends="BaseEntity" persistent="true" accessors="true" displayname="
 	/* *********************************************************************
 	**							PROPERTIES									
 	********************************************************************* */
-			
-	/*					
-	property name="prize"		column="prize"
+		
+	property name="topic"		column="topic"
 								type="string"
-								notnull="true";
-								
-	property name="winner"		column="nameOfWinner"
-								type="string";
-	*/
+								notnull="false";	
 								
 	/* *********************************************************************
 	**						PUBLIC FUNCTIONS								
 	********************************************************************* */
 	
-	public Raffle function init(){
+	public Meeting function init(){
 		super.init();
 		return this;
 	}// end init function
@@ -25,7 +20,8 @@ component  extends="BaseEntity" persistent="true" accessors="true" displayname="
 	public struct function getEntityData(){
 		return {"id" = 			variables.id, 
 				"created" = 	variables.created,
-				"modified" = 	variables.modified};
+				"modified" = 	variables.modified,
+				"topic" =		variables.topic};
 	}// end getEntityData function
 	
 }

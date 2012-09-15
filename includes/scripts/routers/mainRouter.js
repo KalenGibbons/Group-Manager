@@ -10,6 +10,9 @@
 			"users/new" :			"gotoUserNew",			// new user form
 			"users/:id" :			"gotoUserDetails",		// displays user details
 			"users" :				"gotoUsers", 			// list of all available users
+			"meetins/edit/:id" :	"gotoMeetingEdit",		// edit meeting form
+			"meetings/new" :		"gotoMeetingNew",		// new meeting form
+			"meetings/:id" :		"gotoMeetingDetails",	// displays meeting details
 			"meetings" :			"gotoMeetings",			// list of all meetings
 			"raffles/edit/:id" :	"gotoRaffleEdit",		// edit raffle form
 			"raffles/new" :			"gotoRaffleNew",		// new raffle form
@@ -24,9 +27,9 @@
 				throw("App parameter is required for ApplicationRouter");
 			}
 			// bind events
-			var scope = this;
+			var self = this;
 			this.app.on("navigate", function(path){
-				scope.navigate(path, {trigger : true});
+				self.navigate(path, {trigger : true});
 			});
 		}, // end initialize function
 		
@@ -34,9 +37,29 @@
 			this.app.showView('Home');
 		}, // end goHome function
 		
+		/* ************************************************************
+		**					MEETING HANDLERS
+		************************************************************ */
+		
+		gotoMeetingDetails : function(id){
+			this.app.showView('MeetingDetails', id);
+		}, // end gotoMeetingDetails function
+		
+		gotoMeetingEdit : function(id){
+			this.app.showView('MeetingForm', id)
+		}, // end gotoMeetingEdit function
+		
+		gotoMeetingNew : function(){
+			this.app.showView('MeetingForm', 0);
+		}, // end gotoMeetingNew function
+		
 		gotoMeetings : function(){
 			this.app.showView('Meetings');
 		}, // end gotoMeetings function
+		
+		/* ************************************************************
+		**					RAFFLE HANDLERS
+		************************************************************ */
 		
 		gotoRaffleDetails : function(id){
 			this.app.showView('RaffleDetails', id);
@@ -53,6 +76,10 @@
 		gotoRaffles : function(){
 			this.app.showView('Raffles');
 		}, // end gotoRaffles function
+		
+		/* ************************************************************
+		**					USER HANDLERS
+		************************************************************ */
 		
 		gotoUserDetails : function(id){
 			this.app.showView('UserDetails', id);

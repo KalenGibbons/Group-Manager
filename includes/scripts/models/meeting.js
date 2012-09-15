@@ -4,12 +4,13 @@
 	window.fms.Meeting = Backbone.Model.extend({
 		
 		// TODO : use custome URL until REST services are available
-		url : function(){ return 'index.cfm?event=api.raffles&id=' + encodeURIComponent(this.id) },
+		url : function(){ return 'index.cfm?event=api.meetings&id=' + encodeURIComponent(this.id) },
 		
 		// object defaults
 		defaults : {
-			id :	0,
-			topic :	''
+			id :			0,
+			topic :			'',
+			meetingDate :	''
 		}, // end defaults
 		
 		initialize : function(){

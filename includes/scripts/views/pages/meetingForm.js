@@ -1,15 +1,15 @@
 
 (function(){
 	
-	window.fms.RaffleForm =	Backbone.View.extend({
+	window.fms.MeetingForm = Backbone.View.extend({
 		
 		// establish the template for this view
-		template : _.template( $('#raffleEditPage').html() ),
+		template :	_.template( $('#meetingEditPage').html() ),
 		
 		// register view events
 		events : {
 			"change" :				"changeHandler",
-			"click #submitBtn" : 	"validateForm",
+			"click #submitBtn" :	"validateForm",
 			"submit form" :			"submitHandler"
 		}, // end view events
 		
@@ -18,7 +18,7 @@
 			
 			// DOM references
 			
-		}, // end initialize function
+		}, // end intialize function
 		
 		render : function(){
 			// simply render the template
@@ -27,13 +27,13 @@
 		}, // end render function
 		
 		changeHandler : function(event){
-			// clear out any existing error messages
-
+			// clear out any existing error messges
+			
 			// apply the change to the model
-			var target = 			event.target;
+			var target =			event.target;
 			var targetName =		target.name;
 			var change =			{};
-			change[targetName] = 	target.value;
+			change[targetName] =	target.value;
 			this.model.set(change);
 			
 			// run validation (if applicable)
@@ -45,29 +45,32 @@
 			}
 		}, // end changeHandler function
 		
-		updateFormElement : function(element, _cssClass, _message){
-			var cssClass =	_cssClass || "";
-			var message =	_message || "";
+		updateFormElement : function(element, cssClass, message){
+			cssClass =	cssClass || "";
+			message =	message || "";
 			// reset values
 			$(element).parent().attr('class', 'input-block').addClass(cssClass);
 			$(element).next().text(message);
 		}, // end updateFormElement function
 		
-		saveRaffle : function(){
-			var self =	this;
+		saveMeeting : function(){
+			var self = this;
 			try{            
-				this.model.save( null, {
+            	this.model.save( null, {
 					success : function(model, response){
-						App.trigger("navigate", "raffles");
+						// add the newly saved model to the collection
+						self.collection.add(self.model);
+						// return to meetings main page
+						App.trigger('navigate', 'meetings');
 					},
 					error : function(model, response){
 						alert('ERROR');
 					}
 				});
-            }catch(e){            
-            	console.info(e);	            
+			}catch(e){            
+            	console.info(e);
             }
-		}, // end saveUser function
+		}, // end saveMeeting function
 		
 		submitHandler : function(){
 			this.validateForm.call(this);
@@ -75,14 +78,12 @@
 		}, // end submitHandler function
 		
 		validateForm : function(){
-			console.log('VALIDATE FORM');
-			// TODO : validate model
-			console.info(this.model);
-			// save the updated user
-			this.saveRaffle.call(this);
+			// save teh udated meeting
+			this.saveMeeting.call(this);
 		} // end validateForm function
 		
-	}); // end RaffleForm
+		
+	}); // end MeetingForm
+	
 	
 })();
-

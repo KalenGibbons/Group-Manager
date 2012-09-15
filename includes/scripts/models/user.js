@@ -3,6 +3,9 @@
 	
 	window.fms.User = Backbone.Model.extend({
 		
+		// TODO : use custome URL until REST services are available
+		url : function(){ return 'index.cfm?event=api.users&id=' + encodeURIComponent(this.id) },
+		
 		// object defaults
 		defaults : {
 			'firstName' :		'',

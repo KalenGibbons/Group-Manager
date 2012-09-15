@@ -70,10 +70,10 @@
 					</div>
 					<div class="input-block">
 						<label for="email">Email:</label>
-						<div class="input-append">
-							<input id="email" name="email" type="text" value="<%= email %>" placeholder="Email" />
+						<div class="input-prepend">
 							<span class="add-on"><i class="icon-envelope"></i></span>					
-							<!--<span class="notification"></span>-->
+							<input id="email" name="email" type="text" value="<%= email %>" placeholder="Email" />
+							<span class="notification"></span>
 						</div>
 					</div>
 					<div class="input-block">
@@ -110,13 +110,12 @@
 						<input id="topic" name="topic" type="text" value="<%= topic %>" placeholder="Topic" />
 						<span class="notification"></span>
 					</div>
-					<div class="input-block input-append">
+					<div class="input-block">
 						<label for="meetingDate">Date:</label>
 						<input id="meetingDate" name="meetingDate" type="text" value="<%= meetingDate %>" placeholder="mm/dd/yyyy" />
-						<span class="add-on"><i class="icon-calendar"></i></span>
-						<!--<span class="notification"></span>-->
+						<span class="notification"></span>
 					</div>
-					<a href="javascript: void(0);" id="submitBtn" class="btn btn-primary">Submit</a>
+					<a href="javascript: void(0);" id="submitBtn">Submit</a>
 				</form>
 			</div>
 		</script>
@@ -161,7 +160,7 @@
 						<input id="prize" name="prize" type="text" value="<%= prize %>" placeholder="Prize" />
 						<span class="notification"></span>
 					</div>
-					<a href="javascript: void(0);" id="submitBtn" class="btn btn-primary">Submit</a>
+					<a href="javascript: void(0);" id="submitBtn">Submit</a>
 				</form>
 			</div>
 		</script>
@@ -230,13 +229,13 @@
 				<!-- navigation -->
 				<div id="navigation" class="span3 tabbable tabs-left">
 					<ul class="nav nav-tabs">
-						<li id="usersNav">
+						<li>
 							<a href="#users">Users</a>
 						</li>
-						<li id="meetingsNav">
+						<li class="active">
 							<a href="#meetings">Meetings</a>
 						</li>
-						<li  id="rafflesNav">
+						<li>
 							<a href="#raffles">Raffles</a>
 						</li>
 					</ul>

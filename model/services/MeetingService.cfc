@@ -4,5 +4,5 @@ component  extends="BaseEntityService" displayname="Meeting Service" hint="Servi
 		super.init(entityName="Meeting");
 		return this;
 	}// end init function
-
+	
 }

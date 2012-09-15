@@ -19,7 +19,7 @@
 		var rc =			event.getCollection();
 		var entityID =		structKeyExists(rc.postData, 'id') ? rc.postData.id : 0;
 		var editEntity =	entityService.get(entityID);
-		
+
 		// populate and save the entity
 		entityService.populate(editEntity, rc.postData);
 		entityService.save(entity=editEntity, flush=true);

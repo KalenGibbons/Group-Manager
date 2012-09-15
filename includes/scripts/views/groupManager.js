@@ -43,6 +43,31 @@ $(function(){
 			this.$container.html( this.homePage.render().el );
 		}, // end loadView_Home function
 		
+		/* ************************************************************
+		**					MEETING PAGES
+		************************************************************ */
+		
+		loadView_MeetingForm : function(id){
+			// make sure the meetings are loaded
+			if(! this.meetings.loaded){
+				this.loadCollection.call(this, this.meetings, arguments.callee);
+				return;
+			}
+			
+			// get the meeting, or create a new one if a valid ID isn't present
+			var meetingID =		id || 0;
+			var editMeeting =	(meetingID !== 0) ? this.meetings.get(id) : new window.fms.Meeting();
+			// create a new form and add it to the page
+			this.meetingForm =	new window.fms.MeetingForm({model : editMeeting, collection : this.meetings});
+			this.$container.html( this.meetingForm.render().el );
+			// convert date fields into pickers
+			$('#meetingDate').datepicker();
+			// focus on the first field
+			$('#topic').focus();
+			// set the navigation to the correct element
+			this.setNavigation('meetings');
+		}, // end loadView_MeetingForm function
+		
 		loadView_Meetings : function(){
 			// make sure the meetings are loaded
 			if(! this.meetings.loaded){
@@ -51,9 +76,15 @@ $(function(){
 			}
 			
 			// create the meetings page
-			this.meetingsPage = new window.fms.MeetingsPage();
+			this.meetingsPage = new window.fms.MeetingsPage({collection : this.meetings});
 			this.$container.html( this.meetingsPage.render().el );
+			// set the navigation to the correct element
+			this.setNavigation('meetings');
 		}, // end loadView_Meetings function
+		
+		/* ************************************************************
+		**					RAFFLE PAGES
+		************************************************************ */
 		
 		loadView_RaffleForm : function(id){
 			// make sure the raffles are loaded
@@ -66,8 +97,12 @@ $(function(){
 			var raffleID = 		id || 0;
 			var editRaffle =	(raffleID !== 0) ? this.raffles.get(id) : new window.fms.Raffle();
 			// create a new form and add it to the page
-			this.raffleForm =	new window.fms.RaffleForm({model : editRaffle});
+			this.raffleForm =	new window.fms.RaffleForm({model : editRaffle, collection : this.raffles});
 			this.$container.html( this.raffleForm.render().el );
+			// focus on the first field
+			$('#prize').focus();
+			// set the navigation to the correct element
+			this.setNavigation('raffles');
 		}, // end loadView_RaffleForm function
 		
 		loadView_Raffles : function(){
@@ -77,10 +112,16 @@ $(function(){
 				return;
 			}
 
-			// load the raffles page			
+			// load the raffles page	
 			this.rafflesPage = new window.fms.RafflesPage({model : this.raffles});
 			this.$container.html( this.rafflesPage.render().el );
+			// set the navigation to the correct element
+			this.setNavigation('raffles');
 		}, // end loadView_Raffles function
+		
+		/* ************************************************************
+		**					USER PAGES
+		************************************************************ */
 		
 		loadView_UserForm : function(id){
 			// make sure the users are loaded
@@ -91,11 +132,15 @@ $(function(){
 			
 			// get the user, or create a new one if a valid ID isn't present
 			var userID =	id || 0;
-			var editUser =	(userID !== 0) ? this.users.get(id) : this.users.create();
+			var editUser =	(userID !== 0) ? this.users.get(id) : new window.fms.User();
 			// TODO : Handle if user comes back null (not found by id)
 			// create the user form
-			this.userForm =		new window.fms.UserForm({model : editUser});
+			this.userForm =		new window.fms.UserForm({model : editUser, collection : this.users});
 			this.$container.html( this.userForm.render().el );
+			// focus on the first field
+			$('#firstName').focus();
+			// set the navigation to the correct element
+			this.setNavigation('users');
 		}, // end loadView_UserForm function
 		
 		loadView_UserDetails : function(id){
@@ -114,6 +159,8 @@ $(function(){
 			this.userDetailsPage.model = editUser;
 			// inject the content into the page
 			this.$container.html( this.userDetailsPage.render().el );
+			// set the navigation to the correct element
+			this.setNavigation('users');
 		}, // end loadView_UserDetails function
 		
 		loadView_Users : function(){
@@ -126,7 +173,17 @@ $(function(){
 			// load the users page
 			this.usersPage = new window.fms.UsersPage({model : this.users});
 			this.$container.html( this.usersPage.render().el );
+			// set the navigation to the correct element
+			this.setNavigation('users');
 		}, // end loadView_Users function
+		
+		setNavigation : function(activeItem){
+			// deselect current navigation element
+			$('#navigation li').removeClass('active');
+			// select the correct element
+			$('#' + activeItem + 'Nav')	.addClass('active')
+										.children('a').blur(); // removes dotted line around link
+		}, // end setNavigation function
 		
 		showView : function(pageName, params){
 			var functionName = 'loadView_' + pageName;

@@ -3,7 +3,7 @@
 	
 	window.fms.UserRow = Backbone.View.extend({
 		
-		tagName :	'li',
+		tagName :	'tr',
 		
 		// establish the template for this view
 		template :	_.template( $('#userRow').html() ),
