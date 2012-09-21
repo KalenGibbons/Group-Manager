@@ -8,9 +8,10 @@
 		
 		// register view events
 		events : {
-			"change" :				"changeHandler",
-			"click #submitBtn" :	"validateForm",
-			"submit form" :			"submitHandler"
+			"change" :						"changeHandler",
+			"click #submitBtn" :			"validateForm",
+			"click .meeting-list-header" :	"toggleMeetingList",
+			"submit form" :					"submitHandler"
 		}, // end view events
 		
 		initialize : function(){
@@ -45,12 +46,27 @@
 			}
 		}, // end changeHandler function
 		
+		toggleMeetingList : function(event){
+			var $target =	$(event.currentTarget);
+			var $dropList =	$target.next();
+			
+			if( $target.hasClass('expanded') ){
+				$target.removeClass('expanded');
+				$dropList.slideUp();
+			}else{
+				$target.addClass('expanded');
+				$dropList.slideDown();
+			}
+		}, // end toggleMeetingList function
+		
 		updateFormElement : function(element, cssClass, message){
 			cssClass =	cssClass || "";
 			message =	message || "";
 			// reset values
+			/*
 			$(element).parent().attr('class', 'input-block').addClass(cssClass);
 			$(element).next().text(message);
+			*/
 		}, // end updateFormElement function
 		
 		saveMeeting : function(){

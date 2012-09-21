@@ -26,12 +26,12 @@ $(function(){
 			Backbone.history.start();
 		}, // end initialize function
 		
-		loadCollection : function(collection, callback){
+		loadCollection : function(collection, callback, args){
 			var self = this;
 			collection.fetch({
 				success : function(){
 					collection.loaded = true;
-					callback.call(self);
+					callback.call(self, args);
 				}
 				// TODO : Add error handling
 			});
@@ -50,7 +50,7 @@ $(function(){
 		loadView_MeetingForm : function(id){
 			// make sure the meetings are loaded
 			if(! this.meetings.loaded){
-				this.loadCollection.call(this, this.meetings, arguments.callee);
+				this.loadCollection.call(this, this.meetings, arguments.callee, id);
 				return;
 			}
 			
@@ -82,6 +82,25 @@ $(function(){
 			this.setNavigation('meetings');
 		}, // end loadView_Meetings function
 		
+		loadView_PersonList : function(id, selector){
+			// make sure the meetings are loaded
+			if(! this.meetings.loaded){
+				this.loadCollection.call(this, this.meetings, arguments.callee, id, selector);
+				return;
+			}
+
+			// get the meeting, or create a new one if a valid ID isn't present
+			var meetingID =		id || 0;
+			var editMeeting =	(meetingID !== 0) ? this.meetings.get(id) : new window.fms.Meeting();
+			if(meetingID === 0){
+				alert('invalid'); // TODO : do something to handle invalid ids
+			}
+			
+			// create the selector page
+			this.selectorPage =	new window.fms.PersonSelector({model : editMeeting, collection : this.meetings});
+			this.$container.html( this.selectorPage.render().el );
+		}, // end loadView_PersonList function
+		
 		/* ************************************************************
 		**					RAFFLE PAGES
 		************************************************************ */
@@ -89,7 +108,7 @@ $(function(){
 		loadView_RaffleForm : function(id){
 			// make sure the raffles are loaded
 			if(! this.raffles.loaded){
-				this.loadCollection.call(this, this.raffles, arguments.callee);
+				this.loadCollection.call(this, this.raffles, arguments.callee, id);
 				return;
 			}
 			
@@ -126,7 +145,7 @@ $(function(){
 		loadView_UserForm : function(id){
 			// make sure the users are loaded
 			if(! this.users.loaded){
-				this.loadCollection.call(this, this.users, arguments.callee);
+				this.loadCollection.call(this, this.users, arguments.callee, id);
 				return;
 			}
 			
@@ -146,7 +165,7 @@ $(function(){
 		loadView_UserDetails : function(id){
 			// make sure the users are loaded
 			if(! this.users.loaded){
-				this.loadCollection.call(this, this.users, arguments.callee);
+				this.loadCollection.call(this, this.users, arguments.callee, id);
 				return;
 			}
 			// get the user requested

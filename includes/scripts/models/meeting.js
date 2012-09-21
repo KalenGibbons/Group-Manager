@@ -6,16 +6,24 @@
 		// TODO : use custome URL until REST services are available
 		url : function(){ return 'index.cfm?event=api.meetings&id=' + encodeURIComponent(this.id) },
 		
+		getCurrentDate : function(){
+			var today =		new Date();
+			var month =		today.getMonth() + 1;
+			return month + '/' + today.getDate() + '/' + today.getFullYear();
+		}, // end getCurrentDate function
+		
 		// object defaults
 		defaults : {
 			id :			0,
 			topic :			'',
-			meetingDate :	''
+			meetingDate :	'',
+			presenters :	[],
+			attendees :		[],
+			raffles :		[]
 		}, // end defaults
 		
 		initialize : function(){
 			this.validators =		{};
-			
 		}, // end initialize function
 		
 		clear : function(){

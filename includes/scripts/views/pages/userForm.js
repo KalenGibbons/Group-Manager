@@ -71,8 +71,10 @@
 			var cssClass =	_cssClass || "";
 			var message =	_message || "";
 			// reset values
+			/*
 			$(element).parent().attr('class', 'input-block').addClass(cssClass);
 			$(element).next().text(message);
+			*/
 		}, // end updateFormElement function
 		
 		validateForm : function(){

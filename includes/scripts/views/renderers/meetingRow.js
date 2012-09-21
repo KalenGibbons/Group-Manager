@@ -3,7 +3,7 @@
 	
 	window.fms.MeetingRow =	Backbone.View.extend({
 		
-		tabName :	'tr',
+		tagName :	'tr',
 		
 		// establish the template for this view
 		template :	_.template( $('#meetingRow').html() ),
@@ -27,7 +27,7 @@
 		}, // end render function
 		
 		editMeeting : function(){
-			App.trigger('navigate', 'meetings/edit' + this.model.get('id'));
+			App.trigger('navigate', 'meetings/edit/' + this.model.get('id'));
 		}, // end editMeeting function
 		
 		removeMeeting : function(){

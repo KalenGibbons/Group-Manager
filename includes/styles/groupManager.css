@@ -1,24 +1,54 @@
 
-/*
-#navigation{
-	float:			left;
-	width:			300px;
+
+.block-text{
+	color:								#333333;
+	background-color:					#F5F5F5;
+	border:								1px solid #D0D0D0;
+	padding:							10px;
+	 -webkit-border-radius:				6px;
+	border-radius: 						6px;
+	margin:								20px 0px 0px;
+	cursor: 							pointer;
 }
 
-#content{
-	width:			600px;
-	margin-left:	350px;
-}
-*/
-
-
-.input-block.validation-error input,
-.input-block.validation-error select,
-.input-block.validation-error textarea{
-	border-color:	#B94A48; /* TODO - use LESS to make this browser compatible */
-	color:			#B94A48; /* TODO - replace with error variable color */
+.block-text:hover{
+	background-color:					#D9EDF7;
 }
 
-.input-block.validation-error{
-	color:			#B94A48; /* TODO - replace with error variable color */
+.control-group.error .help-inline{
+	display:							inline-block;
 }
+
+.help-inline{
+	display:							none;
+}
+
+.meeting-actions{
+	float:								right;
+}
+
+.meeting-list{
+	display:							none;
+	border:								1px solid #D0D0D0;
+	border-top-style:					none;
+	border-right-style:					solid;
+	border-bottom-style:				solid;
+	border-left-style:					solid;
+}
+
+.meeting-list-header.expanded{
+	border-bottom-right-radius:			0px;
+	border-bottom-left-radius:			0px;
+	-webkit-border-bottom-left-radius:  0px;
+	-webkit-border-bottom-right-radius: 0px;
+}
+
+.meeting-list-title{
+	text-align:							center;
+}
+
+
+
+
+
+

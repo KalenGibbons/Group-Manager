@@ -15,9 +15,22 @@
 		<link rel="stylesheet" type="text/css" href="includes/styles/datepicker.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="includes/styles/groupManager.css" media="all" />
 		
-		<!-- HTML Templates - TODO : make external -->
+		<!-- ********************************************************
+		**						BASE TEMPLATES
+		********************************************************* -->
 		<script type="text/template" id="homePage">
 			<h2>Welcome Home</h2>
+		</script>
+		
+		<script type="text/template" id="personSelector">
+			<h2>Select Attendees (dynamic)</h2>
+			<div>
+				<p>Instructions here</p>
+				<table class="table table-hover">
+					<tbody id="personList">
+					</tbody>
+				</table>
+			</div>
 		</script>
 		
 		<!-- ********************************************************
@@ -58,31 +71,46 @@
 			<h2>User Edit Page</h2>
 			<div>
 				<form onsubmit="return false;">
-					<div class="input-block">
-						<label for="firstName">First Name:</label>
-						<input id="firstName" name="firstName" type="text" value="<%= firstName %>" placeholder="First Name" />
-						<span class="notification"></span>
-					</div>
-					<div class="input-block">
-						<label for="lastName">Last Name:</label>
-						<input id="lastName" name="lastName" type="text" value="<%= lastName %>" placeholder="Last Name" />
-						<span class="notification"></span>
-					</div>
-					<div class="input-block">
-						<label for="email">Email:</label>
-						<div class="input-append">
-							<input id="email" name="email" type="text" value="<%= email %>" placeholder="Email" />
-							<span class="add-on"><i class="icon-envelope"></i></span>					
-							<!--<span class="notification"></span>-->
+					<!-- First Name -->
+					<div class="control-group">
+						<label class="control-label" for="firstName">First Name:</label>
+						<div class="controls input-append">
+							<input id="firstName" name="firstName" type="text" value="<%= firstName %>" placeholder="First Name" />
+							<span class="add-on"><i class="icon-calendar"></i></span>
 						</div>
+						<div class="help-inline">blah blah blah</div>
 					</div>
-					<div class="input-block">
-						<label for="phone">Phone:</label>
-						<input id="phone" name="phone" type="text" value="<%= phone %>" placeholder="Phone" />
-						<span class="notification"></span>
+
+					<!-- Last Name -->
+					<div lass="control-group">
+						<label class="control-label" for="lastName">Last Name:</label>
+						<div class="controls input-append">
+							<input id="lastName" name="lastName" type="text" value="<%= lastName %>" placeholder="Last Name" />
+							<span class="add-on"><i class="icon-calendar"></i></span>
+						</div>
+						<div class="help-inline">blah blah blah</div>
 					</div>
 					
-					<!--<button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>-->
+					<!-- Email -->
+					<div lass="control-group">
+						<label class="control-label" for="email">Email:</label>
+						<div class="controls input-append">
+							<input id="email" name="email" type="text" value="<%= email %>" placeholder="Email" />
+							<span class="add-on"><i class="icon-envelope"></i></span>					
+						</div>
+						<div class="help-inline">blah blah blah</div>
+					</div>
+					
+					<!-- Phone -->
+					<div lass="control-group">
+						<label class="control-label" for="phone">Phone:</label>
+						<div class="controls input-append">
+							<input id="phone" name="phone" type="text" value="<%= phone %>" placeholder="Phone" />
+							<span class="add-on"><i class="icon-calendar"></i></span>
+						</div>
+						<div class="help-inline">blah blah blah</div>
+					</div>
+					
 					<a id="submitBtn" href="javascript: void(0);" class="btn btn-primary">Submit</a>
 				</form>
 			</div>
@@ -105,17 +133,83 @@
 			<h2>Meeting Edit Page</h2>
 			<div>
 				<form onsubmit="return false;">
-					<div class="input-block">
-						<label for="topic">Topic:</label>
-						<input id="topic" name="topic" type="text" value="<%= topic %>" placeholder="Topic" />
-						<span class="notification"></span>
+					<!-- Topic -->
+					<div class="control-group">
+						<label class="control-label" for="topic">Topic:</label>
+						<div class="controls input-append">
+							<input id="topic" name="topic" type="text" value="<%= topic %>" placeholder="Topic" />
+							<span class="add-on"><i class="icon-calendar"></i></span>
+						</div>
+						<div class="help-inline">Error message here</div>
 					</div>
-					<div class="input-block input-append">
-						<label for="meetingDate">Date:</label>
-						<input id="meetingDate" name="meetingDate" type="text" value="<%= meetingDate %>" placeholder="mm/dd/yyyy" />
-						<span class="add-on"><i class="icon-calendar"></i></span>
-						<!--<span class="notification"></span>-->
+					
+					<!-- Meeting Date -->
+					<div class="control-group">
+						<label class="control-label" for="meetingDate">Date:</label>
+						<div class="controls input-append">
+							<input id="meetingDate" name="meetingDate" type="text" value="<%= meetingDate %>" placeholder="mm/dd/yyyy" />
+							<span class="add-on"><i class="icon-calendar"></i></span>
+						</div>
+						<div class="help-inline">blah blah blah</div>
 					</div>
+					
+					<div>
+						<!-- Presenters -->
+						<div class="block-text meeting-list-header">
+							<div class="meeting-actions">
+								<a href="#/meetings/<%= id %>/presenters" class="edit">edit</a>
+							</div>
+							<div class="meeting-list-title">
+								Presenters (<%= presenters.length %>)
+							</div>
+						</div>
+						<div class="meeting-list">
+							<% for (var i = 0; i < presenters.length; i++) { %>
+								<% var presenter = presenters[i]; %>
+								<div>
+									<%= presenter.firstName %> <%= presenter.lastName %>
+								</div>
+							<% } %>
+						</div>
+						
+						<!-- Meetings -->
+						<div class="block-text meeting-list-header">
+							<div class="meeting-actions">
+								<a href="#/meetings/<%= id %>/attendees" class="edit">edit</a>
+							</div>
+							<div class="meeting-list-title">
+								Attendees (<%= attendees.length %>)
+							</div>
+						</div>
+						<div class="meeting-list">
+							<% for (var i = 0; i < attendees.length; i++) { %>
+								<% var attendee = attendees[i]; %>
+								<div>
+									<%= attendee.firstName %> <%= attendee.lastName %>
+								</div>
+							<% } %>
+						</div>
+						
+						<!-- Raffles -->
+						<div class="block-text meeting-list-header">
+							<div class="meeting-actions">
+								<a href="javascript: void(0);" class="view">view</a> &nbsp;
+								<a href="javascript: void(0);" class="edit">edit</a>
+							</div>
+							<div class="meeting-list-title">
+								Raffles (<%= raffles.length %>)
+							</div>
+						</div>
+						<div class="meeting-list">
+							<% for (var i = 0; i < raffles.length; i++) { %>
+								<% var raffle = raffles[i]; %>
+								<div>
+									<%= raffle.prize %>
+								</div>
+							<% } %>
+						</div>
+					</div>
+					
 					<a href="javascript: void(0);" id="submitBtn" class="btn btn-primary">Submit</a>
 				</form>
 			</div>
@@ -140,6 +234,9 @@
 				<%= topic %> 
 			</td>
 			<td>
+				<%= meetingDate %>
+			</td>
+			<td>
 				<a href="javascript: void(0);" class="view">view</a> &nbsp;
 				<a href="javascript: void(0);" class="edit">edit</a> &nbsp;
 				<a href="javascript: void(0);" class="remove">delete</a>
@@ -156,11 +253,15 @@
 			</div>
 			<div>
 				<form onsubmit="return false;">
-					<div class="input-block">
-						<label for="prize">Prize:</label>
-						<input id="prize" name="prize" type="text" value="<%= prize %>" placeholder="Prize" />
-						<span class="notification"></span>
+					<div lass="control-group">
+						<label class="control-label" for="prize">Prize:</label>
+						<div class="controls input-append">
+							<input id="prize" name="prize" type="text" value="<%= prize %>" placeholder="Prize" />
+							<span class="add-on"><i class="icon-envelope"></i></span>
+						</div>
+						<div class="help-inline">blah blah blah</div>
 					</div>
+					<br/> <br/>
 					<a href="javascript: void(0);" id="submitBtn" class="btn btn-primary">Submit</a>
 				</form>
 			</div>
@@ -269,6 +370,7 @@
 		<script src="includes/scripts/collections/raffleCollection.js"></script>
 		<!-- views -->
 		<script src="includes/scripts/views/pages/homePage.js"></script>
+		<script src="includes/scripts/views/pages/personSelector.js"></script>
 		<script src="includes/scripts/views/pages/meetingForm.js"></script>
 		<script src="includes/scripts/views/renderers/meetingRow.js"></script>
 		<script src="includes/scripts/views/pages/meetingsPage.js"></script>
