@@ -1,10 +1,10 @@
 
 (function(){
 	
-	window.fms.UserForm = Backbone.View.extend({
+	window.fms.MemberForm = Backbone.View.extend({
 		
 		// establish the template for this view
-		template : _.template( $('#userEditPage').html() ),
+		template : _.template( $('#memberEditPage').html() ),
 		
 		// register view events
 		events : {
@@ -45,13 +45,13 @@
 			}
 		}, // end changeHandler function
 		
-		saveUser : function(){
+		saveMember : function(){
 			var self =	this;
 			try{            
 				this.model.save( null, {
 					success : function(model, response){
 						// return to raffle main page
-						App.trigger("navigate", "users");
+						App.trigger("navigate", "members");
 					},
 					error : function(model, response){
 						alert('ERROR');
@@ -60,7 +60,7 @@
             }catch(e){            
             	console.info(e);	            
             }
-		}, // end saveUser function
+		}, // end saveMember function
 		
 		submitHandler : function(){
 			this.validateForm.call(this);
@@ -80,10 +80,10 @@
 		validateForm : function(){
 			// TODO : validate model
 			console.info(this.model);
-			// save the updated user
-			this.saveUser.call(this);
+			// save the updated member
+			this.saveMember.call(this);
 		} // end validateForm function
 		
-	}); // end UserForm
+	}); // end MemberForm
 	
 })();

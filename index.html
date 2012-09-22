@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="includes/styles/bootstrap.min.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="includes/styles/bootstrap-responsive.min.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="includes/styles/datepicker.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="includes/styles/font-awesome.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="includes/styles/groupManager.css" media="all" />
 		
 		<!-- ********************************************************
@@ -22,35 +23,45 @@
 			<h2>Welcome Home</h2>
 		</script>
 		
-		<script type="text/template" id="personSelector">
+		<script type="text/template" id="memberSelector">
 			<h2>Select Attendees (dynamic)</h2>
 			<div>
 				<p>Instructions here</p>
+				<input id="filterMembers" type="text" class="input-medium search-query" placeholder="Filter Members">
 				<table class="table table-hover">
-					<tbody id="personList">
+					<tbody id="memberList">
 					</tbody>
 				</table>
 			</div>
+		</script>
+		
+		<script type="text/template" id="memberSelectionRow">
+			<td>
+				<%= firstName %> <%= lastName %>
+			</td>
+			<td>
+				box
+			</td>
 		</script>
 		
 		<!-- ********************************************************
-		**						USER TEMPLATES
+		**						MEMBER TEMPLATES
 		********************************************************* -->
-		<script type="text/template" id="usersPage">
-			<h2>Users Page</h2>
+		<script type="text/template" id="membersPage">
+			<h2>Members Page</h2>
 			<div>
 				<!-- TODO : use style for clear right -->
 				<div style="clear:right;">
-					<a href="#/users/new" style="float: right">Add User</a>
+					<a href="#/members/new" style="float: right">Add Member</a>
 				</div>
 				<table class="table table-striped table-bordered table-hover">
-					<tbody id="userList">
+					<tbody id="memberList">
 					</tbody>
 				</table>
 			</div>
 		</script>
 		
-		<script type="text/template" id="userRow">
+		<script type="text/template" id="memberRow">
 			<td>
 				<%= firstName %> <%= lastName %>
 			</td>
@@ -67,8 +78,8 @@
 			</td>
 		</script>
 		
-		<script type="text/template" id="userEditPage">
-			<h2>User Edit Page</h2>
+		<script type="text/template" id="memberEditPage">
+			<h2>Member Edit Page</h2>
 			<div>
 				<form onsubmit="return false;">
 					<!-- First Name -->
@@ -86,7 +97,7 @@
 						<label class="control-label" for="lastName">Last Name:</label>
 						<div class="controls input-append">
 							<input id="lastName" name="lastName" type="text" value="<%= lastName %>" placeholder="Last Name" />
-							<span class="add-on"><i class="icon-calendar"></i></span>
+							<span class="add-on"><i class="icon-road"></i></span>
 						</div>
 						<div class="help-inline">blah blah blah</div>
 					</div>
@@ -116,8 +127,8 @@
 			</div>
 		</script>
 		
-		<script type="text/template" id="userDetailsPage">
-			<h2>User Details Page</h2>
+		<script type="text/template" id="memberDetailsPage">
+			<h2>Member Details Page</h2>
 			<div>
 				<p>
 					Say hello to <%= name %>.
@@ -257,7 +268,7 @@
 						<label class="control-label" for="prize">Prize:</label>
 						<div class="controls input-append">
 							<input id="prize" name="prize" type="text" value="<%= prize %>" placeholder="Prize" />
-							<span class="add-on"><i class="icon-envelope"></i></span>
+							<span class="add-on"><i class="icon-road"></i></span>
 						</div>
 						<div class="help-inline">blah blah blah</div>
 					</div>
@@ -331,8 +342,8 @@
 				<!-- navigation -->
 				<div id="navigation" class="span3 tabbable tabs-left">
 					<ul class="nav nav-tabs">
-						<li id="usersNav">
-							<a href="#users">Users</a>
+						<li id="membersNav">
+							<a href="#members">Members</a>
 						</li>
 						<li id="meetingsNav">
 							<a href="#meetings">Meetings</a>
@@ -354,33 +365,34 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="includes/scripts/libs/jquery-1.7.2.min.js"><\/script>')</script>
 		<script src="includes/scripts/libs/underscore-min.js"></script>
+		<script src="includes/scripts/libs/underscore.string.min.js"></script>
 		<script src="includes/scripts/libs/backbone-min.js"></script>
-		<script src="includes/scripts/libs/backbone.localStorage-min.js"></script>
 		<script src="includes/scripts/libs/bootstrap.min.js"></script>
 		<script src="includes/scripts/libs/bootstrap-datepicker.js"></script>
 
 		<script src="includes/scripts/init.js"></script>
 		<!-- model -->
 		<script src="includes/scripts/models/meeting.js"></script>
-		<script src="includes/scripts/models/user.js"></script>
+		<script src="includes/scripts/models/member.js"></script>
 		<script src="includes/scripts/models/raffle.js"></script>
 		<!-- collections -->
 		<script src="includes/scripts/collections/meetingCollection.js"></script>
-		<script src="includes/scripts/collections/userCollection.js"></script>
+		<script src="includes/scripts/collections/memberCollection.js"></script>
 		<script src="includes/scripts/collections/raffleCollection.js"></script>
 		<!-- views -->
 		<script src="includes/scripts/views/pages/homePage.js"></script>
-		<script src="includes/scripts/views/pages/personSelector.js"></script>
+		<script src="includes/scripts/views/pages/memberSelector.js"></script>
 		<script src="includes/scripts/views/pages/meetingForm.js"></script>
 		<script src="includes/scripts/views/renderers/meetingRow.js"></script>
+		<script src="includes/scripts/views/renderers/memberSelectionRow.js"></script>
 		<script src="includes/scripts/views/pages/meetingsPage.js"></script>
 		<script src="includes/scripts/views/pages/raffleForm.js"></script>
 		<script src="includes/scripts/views/renderers/raffleRow.js"></script>
 		<script src="includes/scripts/views/pages/rafflesPage.js"></script>
-		<script src="includes/scripts/views/pages/usersPage.js"></script>
-		<script src="includes/scripts/views/renderers/userRow.js"></script>
-		<script src="includes/scripts/views/pages/userDetailsPage.js"></script>
-		<script src="includes/scripts/views/pages/userForm.js"></script>
+		<script src="includes/scripts/views/pages/membersPage.js"></script>
+		<script src="includes/scripts/views/renderers/memberRow.js"></script>
+		<script src="includes/scripts/views/pages/memberDetailsPage.js"></script>
+		<script src="includes/scripts/views/pages/memberForm.js"></script>
 		<!-- core -->
 		<script src="includes/scripts/routers/mainRouter.js"></script>
 		<script src="includes/scripts/views/groupManager.js"></script>

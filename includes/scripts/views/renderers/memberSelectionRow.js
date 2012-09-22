@@ -1,28 +1,29 @@
 
 (function(){
 	
-	window.fms.PersonSelector =	Backbone.View.extend({
+	window.fms.MemberSelectionRow = Backbone.View.extend({
+		
+		tagName :	'tr',
 		
 		// establish the template for this view
-		template :	_.template( $('#personSelector').html() ),
+		template :	_.template( $('#memberSelectionRow').html() ),
 		
 		// register view events
 		event : {
+			
 			
 		}, // end view events
 		
 		initialize : function(){
 			// bind model events
 			
-			// DOM references
-			
 		}, // end initialize function
 		
 		render : function(){
 			$(this.el).html( this.template(this.model.toJSON()) );
 			return this;
-		} // end render function
+		} // end render function		
 		
-	}); // end PersonList
+	}); // end MemberSelectionRow
 	
 })();

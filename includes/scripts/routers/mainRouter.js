@@ -6,10 +6,10 @@
 		// define routes
 		routes : {
 			"" :						"goHome", 				// default route
-			"users/edit/:id" :			"gotoUserEdit",			// edit user form
-			"users/new" :				"gotoUserNew",			// new user form
-			"users/:id" :				"gotoUserDetails",		// displays user details
-			"users" :					"gotoUsers", 			// list of all available users
+			"members/edit/:id" :		"gotoMemberEdit",		// edit member form
+			"members/new" :				"gotoMemberNew",		// new member form
+			"members/:id" :				"gotoMemberDetails",	// displays member details
+			"members" :					"gotoMembers", 			// list of all available members
 			"meetings/edit/:id" :		"gotoMeetingEdit",		// edit meeting form
 			"meetings/new" :			"gotoMeetingNew",		// new meeting form
 			"meetings/:id/attendees" :	"gotoMeetingAttendees",	// display attendee selector list
@@ -44,7 +44,7 @@
 		************************************************************ */
 		
 		gotoMeetingAttendees : function(id){
-			this.app.showView('PersonList', {id : id, selector : 'attendees'});
+			this.app.showView('MemberList', {id : id, selector : 'attendees'});
 		}, // end gotoMeetingAttendees function
 		
 		gotoMeetingDetails : function(id){
@@ -60,7 +60,7 @@
 		}, // end gotoMeetingNew function
 		
 		gotoMeetingPresenters : function(id){
-			this.app.showView('PersonList', {id : id, selector : 'presenter'});
+			this.app.showView('MemberList', {id : id, selector : 'presenter'});
 		}, // end gotoMeetingPresenters function
 		
 		gotoMeetings : function(){
@@ -88,24 +88,24 @@
 		}, // end gotoRaffles function
 		
 		/* ************************************************************
-		**					USER HANDLERS
+		**					MEMBER HANDLERS
 		************************************************************ */
 		
-		gotoUserDetails : function(id){
-			this.app.showView('UserDetails', id);
-		}, // end gotoUserDetails function
+		gotoMemberDetails : function(id){
+			this.app.showView('MemberDetails', id);
+		}, // end gotoMemberDetails function
 		
-		gotoUserEdit : function(id){
-			this.app.showView('UserForm', id);
-		}, // end gotoUserEdit function
+		gotoMemberEdit : function(id){
+			this.app.showView('MemberForm', id);
+		}, // end gotoMemberEdit function
 		
-		gotoUserNew : function(){
-			this.app.showView('UserForm', 0);
-		}, // end gotoUserNew function
+		gotoMemberNew : function(){
+			this.app.showView('MemberForm', 0);
+		}, // end gotoMemberNew function
 		
-		gotoUsers : function(){
-			this.app.showView('Users');
-		} // end gotoUsers function
+		gotoMembers : function(){
+			this.app.showView('Members');
+		} // end gotoMembers function
 		
 	}); // end ApplicationRouter
 	

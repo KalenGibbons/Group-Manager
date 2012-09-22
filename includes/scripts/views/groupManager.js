@@ -14,7 +14,7 @@ $(function(){
 		initialize : function(){
 			// create base variables
 			this.router =		new window.fms.ApplicationRouter(this);
-			this.users =		new window.fms.UserCollection();
+			this.members =		new window.fms.MemberCollection();
 			this.meetings =		new window.fms.MeetingCollection();
 			this.raffles =		new window.fms.RaffleCollection();
 			// DOM references
@@ -82,10 +82,17 @@ $(function(){
 			this.setNavigation('meetings');
 		}, // end loadView_Meetings function
 		
-		loadView_PersonList : function(id, selector){
+		loadView_MemberList : function(id, selector){
+			// TODO : see if we can figure out a way to load members and meeting simultaneously without a double callback
+			
 			// make sure the meetings are loaded
 			if(! this.meetings.loaded){
 				this.loadCollection.call(this, this.meetings, arguments.callee, id, selector);
+				return;
+			}
+			// make sure the members are loaded
+			if(! this.members.loaded){
+				this.loadCollection.call(this, this.members, arguments.callee, id, selector);
 				return;
 			}
 
@@ -97,9 +104,9 @@ $(function(){
 			}
 			
 			// create the selector page
-			this.selectorPage =	new window.fms.PersonSelector({model : editMeeting, collection : this.meetings});
+			this.selectorPage =	new window.fms.MemberSelector({model : editMeeting, collection : this.members});
 			this.$container.html( this.selectorPage.render().el );
-		}, // end loadView_PersonList function
+		}, // end loadView_MemberList function
 		
 		/* ************************************************************
 		**					RAFFLE PAGES
@@ -139,62 +146,64 @@ $(function(){
 		}, // end loadView_Raffles function
 		
 		/* ************************************************************
-		**					USER PAGES
+		**					MEMBER PAGES
 		************************************************************ */
 		
-		loadView_UserForm : function(id){
-			// make sure the users are loaded
-			if(! this.users.loaded){
-				this.loadCollection.call(this, this.users, arguments.callee, id);
+		loadView_MemberForm : function(id){
+			// make sure the members are loaded
+			if(! this.members.loaded){
+				this.loadCollection.call(this, this.members, arguments.callee, id);
 				return;
 			}
 			
-			// get the user, or create a new one if a valid ID isn't present
-			var userID =	id || 0;
-			var editUser =	(userID !== 0) ? this.users.get(id) : new window.fms.User();
-			// TODO : Handle if user comes back null (not found by id)
-			// create the user form
-			this.userForm =		new window.fms.UserForm({model : editUser, collection : this.users});
-			this.$container.html( this.userForm.render().el );
+			// get the member, or create a new one if a valid ID isn't present
+			var memberID =	id || 0;
+			var editMember =	(memberID !== 0) ? this.members.get(id) : new window.fms.Member();
+			// TODO : Handle if member comes back null (not found by id)
+			// create the member form
+			this.memberForm =		new window.fms.MemberForm({model : editMember, collection : this.members});
+			this.$container.html( this.memberForm.render().el );
 			// focus on the first field
 			$('#firstName').focus();
 			// set the navigation to the correct element
-			this.setNavigation('users');
-		}, // end loadView_UserForm function
+			this.setNavigation('members');
+		}, // end loadView_MemberForm function
 		
-		loadView_UserDetails : function(id){
-			// make sure the users are loaded
-			if(! this.users.loaded){
-				this.loadCollection.call(this, this.users, arguments.callee, id);
+		loadView_MemberDetails : function(id){
+			// make sure the members are loaded
+			if(! this.members.loaded){
+				this.loadCollection.call(this, this.members, arguments.callee, id);
 				return;
 			}
-			// get the user requested
-			var userID =	id || 0;
-			var editUser =	this.users.get(id);
-			// TODO : Handle if user comes back null (not found by id)
-			// create the user page
-			this.userDetailsPage =	new window.fms.UserDetails({model : editUser});
+			// get the member requested
+			var memberID =	id || 0;
+			var editMember =	this.members.get(id);
+			// TODO : Handle if member comes back null (not found by id)
+			// create the member page
+			this.memberDetailsPage =	new window.fms.MemberDetails({model : editMember});
 			// update the model
-			this.userDetailsPage.model = editUser;
+			this.memberDetailsPage.model = editMember;
 			// inject the content into the page
-			this.$container.html( this.userDetailsPage.render().el );
+			this.$container.html( this.memberDetailsPage.render().el );
 			// set the navigation to the correct element
-			this.setNavigation('users');
-		}, // end loadView_UserDetails function
+			this.setNavigation('members');
+		}, // end loadView_MemberDetails function
 		
-		loadView_Users : function(){
-			// make sure the users are loaded
-			if(! this.users.loaded){
-				this.loadCollection.call(this, this.users, arguments.callee);
+		loadView_Members : function(){
+			console.log('load members');
+			// make sure the members are loaded
+			if(! this.members.loaded){
+				this.loadCollection.call(this, this.members, arguments.callee);
 				return;
 			}
 			
-			// load the users page
-			this.usersPage = new window.fms.UsersPage({model : this.users});
-			this.$container.html( this.usersPage.render().el );
+			console.log('members loaded');
+			// load the members page
+			this.membersPage = new window.fms.MembersPage({model : this.members});
+			this.$container.html( this.membersPage.render().el );
 			// set the navigation to the correct element
-			this.setNavigation('users');
-		}, // end loadView_Users function
+			this.setNavigation('members');
+		}, // end loadView_Members function
 		
 		setNavigation : function(activeItem){
 			// deselect current navigation element

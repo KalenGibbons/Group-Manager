@@ -23,6 +23,10 @@
 	display:							none;
 }
 
+.hidden{
+	display:							none;
+}
+
 .meeting-actions{
 	float:								right;
 }

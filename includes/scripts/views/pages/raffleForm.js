@@ -71,7 +71,7 @@
             }catch(e){            
             	console.info(e);	            
             }
-		}, // end saveUser function
+		}, // end saveMember function
 		
 		submitHandler : function(){
 			this.validateForm.call(this);
@@ -82,7 +82,7 @@
 			console.log('VALIDATE FORM');
 			// TODO : validate model
 			console.info(this.model);
-			// save the updated user
+			// save the updated member
 			this.saveRaffle.call(this);
 		} // end validateForm function
 		

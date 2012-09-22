@@ -1,10 +1,10 @@
 
 (function(){
 	
-	window.fms.UserDetails = Backbone.View.extend({
+	window.fms.MemberDetails = Backbone.View.extend({
 		
 		// establish the template for this view
-		template :	_.template( $('#userDetailsPage').html() ),
+		template :	_.template( $('#memberDetailsPage').html() ),
 		
 		initialize : function(){
 			
@@ -17,7 +17,7 @@
 			return this;
 		} // end render function
 		
-	}); // end UserDetails
+	}); // end MemberDetails
 	
 })();
 

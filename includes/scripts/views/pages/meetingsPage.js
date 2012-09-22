@@ -29,11 +29,13 @@
 		}, // end render function
 		
 		addMeeting : function(){
-			
+			// re-render meeting rows
+			this.updateMeetings.call(this);
 		}, // end addMeeting function
 		
 		resetMeetings : function(){
-			
+			// re-render meeting rows
+			this.updateMeetings.call(this);
 		}, // end resetMeetings function
 		
 		updateMeetings : function(){

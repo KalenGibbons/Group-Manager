@@ -17,14 +17,14 @@
 		setBaseURL("http://#cgi.HTTP_HOST#/#getSetting('AppMapping')#/index.cfm");
 	}
 
-	// User routes
-	addRoute(	pattern="/users/:id", 
-				handler="api.Users", 
-				action={GET = "getUser", POST = "createUser", PUT = "updateUser", DELETE = "deleteUser" });
+	// Member routes
+	addRoute(	pattern="/members/:id", 
+				handler="api.Members", 
+				action={GET = "getMember", POST = "createMember", PUT = "updateMember", DELETE = "deleteMember" });
 	
-	addRoute(	pattern="/users", 
-				handler="api.Users", 
-				action="getUsers");
+	addRoute(	pattern="/members", 
+				handler="api.Members", 
+				action="getMembers");
 	
 	// Default route relies on handler/action conventions
 	addRoute(pattern=":handler/:action?");

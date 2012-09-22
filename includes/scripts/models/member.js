@@ -1,10 +1,10 @@
 
 (function(){
 	
-	window.fms.User = Backbone.Model.extend({
+	window.fms.Member = Backbone.Model.extend({
 		
 		// TODO : use custome URL until REST services are available
-		url : function(){ return 'index.cfm?event=api.users&id=' + encodeURIComponent(this.id) },
+		url : function(){ return 'index.cfm?event=api.members&id=' + encodeURIComponent(this.id) },
 		
 		// object defaults
 		defaults : {
@@ -67,6 +67,6 @@
 			return results;
 		} // end validateFirstName function
 		
-	}); // end User
+	}); // end Member
 	
 })();
