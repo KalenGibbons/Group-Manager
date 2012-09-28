@@ -1,4 +1,30 @@
 
+#memberList tr .icon-check-empty{
+	font-size: 							22px; 
+	color: 								#AAAAAA;
+	display:							block;
+}
+
+#memberList tr .icon-check{
+	display:							none;
+}
+
+#memberList tr.selected{
+	/* TODO : PICK BETTER COLORS */
+	background-color:					#EBF4F7; 
+	color:								#3A87AD;
+}
+
+#memberList tr.selected .icon-check{
+	color:								#000000;
+	font-size: 							22px;
+	display:							block;
+}
+
+#memberList tr.selected .icon-check-empty{
+	display:							none;
+}
+
 
 .block-text{
 	color:								#333333;

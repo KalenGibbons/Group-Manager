@@ -31,7 +31,7 @@ $(function(){
 			collection.fetch({
 				success : function(){
 					collection.loaded = true;
-					callback.call(self, args);
+					callback.apply(self, args);
 				}
 				// TODO : Add error handling
 			});
@@ -50,7 +50,7 @@ $(function(){
 		loadView_MeetingForm : function(id){
 			// make sure the meetings are loaded
 			if(! this.meetings.loaded){
-				this.loadCollection.call(this, this.meetings, arguments.callee, id);
+				this.loadCollection.apply(this, [this.meetings, arguments.callee, [id]]);
 				return;
 			}
 			
@@ -71,7 +71,7 @@ $(function(){
 		loadView_Meetings : function(){
 			// make sure the meetings are loaded
 			if(! this.meetings.loaded){
-				this.loadCollection.call(this, this.meetings, arguments.callee);
+				this.loadCollection.apply(this, [this.meetings, arguments.callee]);
 				return;
 			}
 			
@@ -84,15 +84,15 @@ $(function(){
 		
 		loadView_MemberList : function(id, selector){
 			// TODO : see if we can figure out a way to load members and meeting simultaneously without a double callback
-			
+
 			// make sure the meetings are loaded
 			if(! this.meetings.loaded){
-				this.loadCollection.call(this, this.meetings, arguments.callee, id, selector);
+				this.loadCollection.apply(this, [this.meetings, arguments.callee, [id, selector]]);
 				return;
 			}
 			// make sure the members are loaded
 			if(! this.members.loaded){
-				this.loadCollection.call(this, this.members, arguments.callee, id, selector);
+				this.loadCollection.apply(this, [this.members, arguments.callee, [id, selector]]);
 				return;
 			}
 
@@ -104,7 +104,7 @@ $(function(){
 			}
 			
 			// create the selector page
-			this.selectorPage =	new window.fms.MemberSelector({model : editMeeting, collection : this.members});
+			this.selectorPage =	new window.fms.MemberSelector({model : editMeeting, collection : this.members, selectionType : selector});
 			this.$container.html( this.selectorPage.render().el );
 		}, // end loadView_MemberList function
 		
@@ -115,7 +115,7 @@ $(function(){
 		loadView_RaffleForm : function(id){
 			// make sure the raffles are loaded
 			if(! this.raffles.loaded){
-				this.loadCollection.call(this, this.raffles, arguments.callee, id);
+				this.loadCollection.apply(this, [this.raffles, arguments.callee, [id]]);
 				return;
 			}
 			
@@ -134,7 +134,7 @@ $(function(){
 		loadView_Raffles : function(){
 			// make sure the raffles are loaded
 			if(! this.raffles.loaded){
-				this.loadCollection.call(this, this.raffles, arguments.callee);
+				this.loadCollection.apply(this, [this.raffles, arguments.callee]);
 				return;
 			}
 
@@ -152,7 +152,7 @@ $(function(){
 		loadView_MemberForm : function(id){
 			// make sure the members are loaded
 			if(! this.members.loaded){
-				this.loadCollection.call(this, this.members, arguments.callee, id);
+				this.loadCollection.apply(this, [this.members, arguments.callee, [id]]);
 				return;
 			}
 			
@@ -172,7 +172,7 @@ $(function(){
 		loadView_MemberDetails : function(id){
 			// make sure the members are loaded
 			if(! this.members.loaded){
-				this.loadCollection.call(this, this.members, arguments.callee, id);
+				this.loadCollection.apply(this, [this.members, arguments.callee, [id]]);
 				return;
 			}
 			// get the member requested
@@ -190,14 +190,12 @@ $(function(){
 		}, // end loadView_MemberDetails function
 		
 		loadView_Members : function(){
-			console.log('load members');
 			// make sure the members are loaded
 			if(! this.members.loaded){
-				this.loadCollection.call(this, this.members, arguments.callee);
+				this.loadCollection.apply(this, [this.members, arguments.callee]);
 				return;
 			}
 			
-			console.log('members loaded');
 			// load the members page
 			this.membersPage = new window.fms.MembersPage({model : this.members});
 			this.$container.html( this.membersPage.render().el );
@@ -216,7 +214,7 @@ $(function(){
 		showView : function(pageName, params){
 			var functionName = 'loadView_' + pageName;
 			if( typeof this[functionName] === "function" ){
-				this[functionName].call(this, params);
+				this[functionName].apply(this, params);
 			}else{
 				console.log("Invalid page provided: " + pageName);
 			}

@@ -20,17 +20,19 @@ component  extends="BaseEntity" persistent="true" accessors="true" displayname="
 								singularname="presenter" 
 								linktable="meetingPresenters"
 								cascade="refresh"        
-								fieldtype="one-to-many" 
-								cfc="Person" 
-								fkcolumn="presenterID";
+								fieldtype="many-to-many" 
+								cfc="Person"
+								fkcolumn="presenterID"
+								inversejoincolumn="meetingID";
 								
 	property name="attendees" 	type="array"
 								singularname="attendee" 
 								linktable="meetingAttendees"
 								cascade="refresh"        
-								fieldtype="one-to-many" 
-								cfc="Person" 
-								fkcolumn="attendeeID";
+								fieldtype="many-to-many" 
+								cfc="Person"
+								fkcolumn="attendeeID"
+								inversejoincolumn="meetingID";
 								
 	property name="raffles" 	type="array"
 								singularname="raffle" 

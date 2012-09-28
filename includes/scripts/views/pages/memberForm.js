@@ -54,10 +54,11 @@
 						App.trigger("navigate", "members");
 					},
 					error : function(model, response){
-						alert('ERROR');
+						alert('ERROR'); // TODO : add error handling
 					}
 				});
             }catch(e){            
+				// TODO : add error handling
             	console.info(e);	            
             }
 		}, // end saveMember function

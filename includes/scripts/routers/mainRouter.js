@@ -44,23 +44,23 @@
 		************************************************************ */
 		
 		gotoMeetingAttendees : function(id){
-			this.app.showView('MemberList', {id : id, selector : 'attendees'});
+			this.app.showView('MemberList', [id, 'attendees']);
 		}, // end gotoMeetingAttendees function
 		
 		gotoMeetingDetails : function(id){
-			this.app.showView('MeetingDetails', id);
+			this.app.showView('MeetingDetails', [id]);
 		}, // end gotoMeetingDetails function
 		
 		gotoMeetingEdit : function(id){
-			this.app.showView('MeetingForm', id);
+			this.app.showView('MeetingForm', [id]);
 		}, // end gotoMeetingEdit function
 		
 		gotoMeetingNew : function(){
-			this.app.showView('MeetingForm', 0);
+			this.app.showView('MeetingForm', [0]);
 		}, // end gotoMeetingNew function
 		
 		gotoMeetingPresenters : function(id){
-			this.app.showView('MemberList', {id : id, selector : 'presenter'});
+			this.app.showView('MemberList', [id, 'presenters']);
 		}, // end gotoMeetingPresenters function
 		
 		gotoMeetings : function(){
@@ -72,15 +72,15 @@
 		************************************************************ */
 		
 		gotoRaffleDetails : function(id){
-			this.app.showView('RaffleDetails', id);
+			this.app.showView('RaffleDetails', [id]);
 		}, // end gotoRaffleDetails function
 		
 		gotoRaffleEdit : function(id){
-			this.app.showView('RaffleForm', id)
+			this.app.showView('RaffleForm', [id])
 		}, // end gotoRaffleEdit function
 		
 		gotoRaffleNew : function(){
-			this.app.showView('RaffleForm', 0);
+			this.app.showView('RaffleForm', [0]);
 		}, // end gotoRaffleNew function
 		
 		gotoRaffles : function(){
@@ -92,15 +92,15 @@
 		************************************************************ */
 		
 		gotoMemberDetails : function(id){
-			this.app.showView('MemberDetails', id);
+			this.app.showView('MemberDetails', [id]);
 		}, // end gotoMemberDetails function
 		
 		gotoMemberEdit : function(id){
-			this.app.showView('MemberForm', id);
+			this.app.showView('MemberForm', [id]);
 		}, // end gotoMemberEdit function
 		
 		gotoMemberNew : function(){
-			this.app.showView('MemberForm', 0);
+			this.app.showView('MemberForm', [0]);
 		}, // end gotoMemberNew function
 		
 		gotoMembers : function(){
